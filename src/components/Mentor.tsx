@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "./motion/Reveal";
 import { CheckIcon } from "./ui/Icons";
 
@@ -21,11 +22,14 @@ export function Mentor() {
       <div className="mx-auto grid max-w-[1200px] items-start gap-16 lg:grid-cols-12">
         <Reveal className="lg:col-span-5">
           <div className="rounded-lg border border-edge bg-surface-raised p-8">
-            {/* TODO: trocar pela foto real do Fabricio (a mesma da LP da comunidade) */}
-            <div className="flex aspect-square items-center justify-center rounded-lg bg-neutral-800">
-              <span className="font-display text-display-lg text-neutral-600">
-                FG
-              </span>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-neutral-800">
+              <Image
+                src="/fabricio.jpg"
+                alt="Fabricio Gonçalvez"
+                fill
+                sizes="(min-width: 1024px) 448px, 100vw"
+                className="object-cover object-top"
+              />
             </div>
             <div className="mt-6 grid grid-cols-3 gap-4 border-t border-edge pt-6">
               {STATS.map((stat) => (
