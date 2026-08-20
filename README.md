@@ -6,11 +6,12 @@ conteúdo, não uma cópia do projeto.
 
 | Campanha | URL | Quando |
 |---|---|---|
-| Primeiro Lucro em 5 Dias (iniciante) | `/mentoriafabricio/primeirolucro` | 31/08 · 19h30 |
-| 2 Milhões até o Final de 2026 (intermediário e avançado) | `/mentoriafabricio/avancado` | 26/08 · 20h |
+| Primeiro Lucro em 5 Dias (iniciante) | `/primeirolucro` | 31/08 · 19h30 |
+| 2 Milhões até o Final de 2026 (intermediário e avançado) | `/avancado` | 26/08 · 20h |
 
 A raiz `/` redireciona para a campanha padrão definida em
-`src/content/index.ts`.
+`src/content/index.ts`. Links antigos com o prefixo `/mentoriafabricio/`
+continuam funcionando por redirect permanente.
 
 ## Stack
 
@@ -43,7 +44,7 @@ Nenhum componente muda. São três passos:
    e **reimplante o script** — sem isso os leads dela caem na aba
    genérica `Leads`.
 
-A página é gerada estaticamente em `/mentoriafabricio/<slug>` pelo
+A página é gerada estaticamente em `/<slug>` pelo
 `generateStaticParams`, com `title`, `description` e Open Graph próprios.
 
 O campo `origem` é o que separa os leads de cada aula na planilha. Ele

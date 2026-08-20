@@ -7,9 +7,6 @@ export type { Campanha } from "./tipos";
 /** Toda campanha publicada. Adicionar uma LP nova = adicionar um item aqui. */
 export const CAMPANHAS: Campanha[] = [primeiroLucro, avancado];
 
-/** Prefixo de URL comum a todas as campanhas. */
-export const BASE = "/mentoriafabricio";
-
 /** Campanha exibida quando alguém chega na raiz do site. */
 export const CAMPANHA_PADRAO = primeiroLucro;
 
@@ -23,6 +20,11 @@ export function buscarCampanha(slug: string): Campanha | undefined {
  */
 export const ORIGENS_VALIDAS = CAMPANHAS.map((c) => c.origem);
 
+/**
+ * A campanha vive na raiz do domínio: mentoriafabricio.vercel.app/<slug>.
+ * O caminho é definido pela pasta `src/app/[campanha]/` — mudar aqui sem
+ * mover a pasta quebra os links.
+ */
 export function caminhoDaCampanha(campanha: Campanha): string {
-  return `${BASE}/${campanha.slug}`;
+  return `/${campanha.slug}`;
 }

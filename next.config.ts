@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { CAMPANHA_PADRAO } from "./src/content";
+import { CAMPANHAS, CAMPANHA_PADRAO } from "./src/content";
 
 const nextConfig: NextConfig = {
   async redirects() {
@@ -9,9 +9,17 @@ const nextConfig: NextConfig = {
         // continuar levando a algum lugar. Temporário de propósito — a
         // campanha padrão muda, e um 308 ficaria cacheado no navegador.
         source: "/",
-        destination: `/mentoriafabricio/${CAMPANHA_PADRAO.slug}`,
+        destination: `/${CAMPANHA_PADRAO.slug}`,
         permanent: false,
       },
+      // As campanhas viveram um tempo sob /mentoriafabricio/, antes do
+      // domínio próprio tornar o prefixo redundante. Qualquer link daquele
+      // formato que tenha saído continua funcionando.
+      ...CAMPANHAS.map((campanha) => ({
+        source: `/mentoriafabricio/${campanha.slug}`,
+        destination: `/${campanha.slug}`,
+        permanent: true,
+      })),
     ];
   },
 };

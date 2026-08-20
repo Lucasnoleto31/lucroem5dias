@@ -14,6 +14,14 @@ import { Footer } from "@/components/Footer";
 
 type Props = { params: Promise<{ campanha: string }> };
 
+/**
+ * A rota é de primeiro nível, então casaria com qualquer caminho do site.
+ * Com dynamicParams desligado, só os slugs gerados abaixo existem: o resto
+ * é 404 estático, sem invocar função. Rotas próprias como /obrigado e
+ * /api/lead continuam tendo precedência sobre a dinâmica.
+ */
+export const dynamicParams = false;
+
 /** Toda campanha registrada vira uma página estática no build. */
 export function generateStaticParams() {
   return CAMPANHAS.map((c) => ({ campanha: c.slug }));
