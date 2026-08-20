@@ -10,8 +10,19 @@ linha na planilha.
 ### 1. Crie a planilha
 
 Abra [sheets.new](https://sheets.new) e dê um nome, por exemplo
-**Leads · Primeiro Lucro em 5 Dias**. Não precisa criar colunas: o script
-monta o cabeçalho sozinho na primeira vez.
+**Leads · Mentoria Fabricio Gonçalvez**. Não precisa criar colunas nem
+abas: o script monta tudo sozinho.
+
+Cada campanha grava na própria aba, escolhida pelo campo `origem` que vem
+da landing page:
+
+| Campanha | Aba |
+|---|---|
+| Primeiro Lucro em 5 Dias | `Primeiro Lucro` |
+| 2 Milhões até o Final de 2026 | `Avançado` |
+
+A aba é criada, com cabeçalho formatado, na primeira inscrição que
+chegar. Campanha sem mapeamento em `ABAS` cai na aba `Leads`.
 
 ### 2. Cole o script
 

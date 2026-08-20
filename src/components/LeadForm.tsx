@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import type { Campanha } from "@/content/tipos";
 import { Reveal } from "./motion/Reveal";
 import { TextField, SelectField } from "./ui/Field";
 import { CheckIcon, WhatsAppIcon } from "./ui/Icons";
@@ -14,12 +15,6 @@ import {
 } from "@/lib/format";
 
 export const CORRETORAS = ["Genial", "XP", "BTG", "Warren", "Toro", "Outro"];
-
-const REASSURANCE = [
-  "Vaga 100% gratuita, sem pegadinha no final",
-  "A equipe da Zeve te chama no WhatsApp pra confirmar tudo",
-  "Seus dados são usados só pra falar com você sobre esta aula",
-];
 
 type FormState = {
   nome: string;
@@ -49,7 +44,7 @@ function validate(values: FormState): Partial<FormState> {
   return errors;
 }
 
-export function LeadForm() {
+export function LeadForm({ campanha }: { campanha: Campanha }) {
   const router = useRouter();
   const [values, setValues] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<FormState>>({});
@@ -93,10 +88,14 @@ export function LeadForm() {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, site: honeypot }),
+        body: JSON.stringify({
+          ...values,
+          site: honeypot,
+          origem: campanha.origem,
+        }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      router.push("/obrigado");
+      router.push(`/obrigado?c=${campanha.slug}`);
     } catch {
       setStatus("error");
     }
@@ -111,14 +110,13 @@ export function LeadForm() {
         <Reveal className="lg:col-span-5">
           <p className="overline-label text-primary-300">Inscrição</p>
           <h2 className="mt-4 max-w-[16ch] text-h1 text-text-strong md:text-display-lg">
-            Garanta sua vaga pro dia 31/08
+            {campanha.form.titulo}
           </h2>
           <p className="mt-4 max-w-[48ch] text-body-lg text-text-muted">
-            Preencha os dados e a equipe da Zeve te chama no WhatsApp pra
-            deixar tudo pronto antes da aula.
+            {campanha.form.subtitulo}
           </p>
           <ul className="mt-10 flex flex-col gap-4">
-            {REASSURANCE.map((item) => (
+            {campanha.form.garantias.map((item) => (
               <li
                 key={item}
                 className="flex items-start gap-2 text-body-sm text-text-default"

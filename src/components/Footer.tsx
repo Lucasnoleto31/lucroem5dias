@@ -1,4 +1,6 @@
-export function Footer() {
+import type { Campanha } from "@/content/tipos";
+
+export function Footer({ campanha }: { campanha: Campanha }) {
   return (
     <footer className="border-t border-edge px-4 py-16 md:px-8">
       <div className="mx-auto max-w-[1200px]">
@@ -6,7 +8,7 @@ export function Footer() {
           <div>
             <p className="font-display text-h3 text-text-strong">zeve</p>
             <p className="mt-1 text-body-sm text-text-muted">
-              × Fabricio Gonçalvez · Primeiro Lucro em 5 Dias
+              × Fabricio Gonçalvez · {campanha.nome}
             </p>
           </div>
           <a

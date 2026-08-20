@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isValidCPF, isValidEmail, isValidPhone } from "@/lib/format";
+import { ORIGENS_VALIDAS, CAMPANHA_PADRAO } from "@/content";
 
 const CORRETORAS = ["Genial", "XP", "BTG", "Warren", "Toro", "Outro"];
 
@@ -9,6 +10,7 @@ type LeadBody = {
   email?: string;
   cpf?: string;
   corretora?: string;
+  origem?: string;
   site?: string; // honeypot
 };
 
@@ -28,6 +30,17 @@ export async function POST(request: Request) {
   const email = (body.email ?? "").trim();
   const cpf = (body.cpf ?? "").trim();
   const corretora = (body.corretora ?? "").trim();
+  const origemBruta = (body.origem ?? "").trim();
+
+  // Origem ausente = página em cache de antes das campanhas existirem.
+  // Cai no padrão em vez de descartar: perder um lead é pior que classificá-lo.
+  // Já uma origem presente e desconhecida é injeção — essa string iria direto
+  // para a planilha e escolhe em qual aba gravar.
+  if (origemBruta && !ORIGENS_VALIDAS.includes(origemBruta)) {
+    console.warn("[lead] origem desconhecida, recusado:", origemBruta);
+    return NextResponse.json({ ok: false, error: "Origem inválida" }, { status: 422 });
+  }
+  const origem = origemBruta || CAMPANHA_PADRAO.origem;
 
   const invalid =
     nome.split(/\s+/).length < 2 ||
@@ -48,7 +61,7 @@ export async function POST(request: Request) {
     email,
     cpf,
     corretora,
-    origem: "lp-primeiro-lucro-5-dias",
+    origem,
   };
 
   const webhookUrl = process.env.LEAD_WEBHOOK_URL;

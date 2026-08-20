@@ -16,16 +16,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Primeiro Lucro em 5 Dias · Aula ao vivo com Fabricio Gonçalvez",
+  // Fallback: cada campanha define o próprio title/description em
+  // generateMetadata. Isto só aparece em páginas sem metadata própria.
+  title: "Mentoria Fabricio Gonçalvez · Aulas ao vivo",
   description:
-    "Aula ao vivo e gratuita de 2 horas, dia 31/08 às 19h30, com Fabricio Gonçalvez, sócio da Genial Investimentos e 5º no Top Traders InfoMoney 2025. Conteúdo educacional para iniciantes, sem garantia de resultado.",
-  openGraph: {
-    title: "Primeiro Lucro em 5 Dias · Aula ao vivo com Fabricio Gonçalvez",
-    description:
-      "Aula ao vivo e gratuita de 2 horas para iniciantes, 31/08 às 19h30. Conteúdo educacional, sem garantia de resultado.",
-    locale: "pt_BR",
-    type: "website",
-  },
+    "Aulas ao vivo e gratuitas com Fabricio Gonçalvez, sócio da Genial Investimentos e 5º no Top Traders InfoMoney 2025. Conteúdo educacional, sem garantia de resultado.",
 };
 
 export const viewport: Viewport = {
